@@ -1,0 +1,51 @@
+#系统配置
+app:
+  port: :8000
+  is-print: true
+  time-format: 2006-01-02 15:04:05
+
+
+
+#mysql配置
+#mysql:
+#  username: root
+#  password: pwd
+#  host: 127.0.0.1
+#  port: 3306
+#  dbname: db
+#  config: 'charset=utf8mb4&parseTime=True&loc=Local'
+#  max-idle-conns: 10
+#  max-open-conns: 10
+#  log-mode: false
+
+
+#wx 微信配置
+wx:
+  token: wxtoken
+
+
+#tbk 淘宝客配置
+tbk:
+  #折淘客 http://www.zhetaoke.com/user/open/open_shangpin_id.aspx
+  ztk:
+    gateway: https://api.zhetaoke.com:10001/api
+    app-key: 折淘客appkey
+    sid:
+    pid: 淘宝联盟pid
+    method:
+      get-tkl: open_gaoyongzhuanlian_tkl
+
+  #好单库 https://www.haodanku.com/api/detail
+  hdk:
+    gateway: http://v2.api.haodanku.com
+    api-key:
+    jd-union-id: 京东联盟id
+    method:
+      jd-link: get_jditems_link
+
+  #订单侠接口  https://www.dingdanxia.com/doc/133/124
+  ddx:
+    gateway: api.tbk.dingdanxia.com
+    api-key:
+    method:
+      vip-url: vip/url_privilege
