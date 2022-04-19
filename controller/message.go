@@ -10,7 +10,6 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/ymboom0042/mp-tbk/pkg/service/api"
-	"github.com/ymboom0042/mp-tbk/pkg/utils"
 )
 
 type MessageController struct {
@@ -20,7 +19,6 @@ type MessageController struct {
 func (mc MessageController) Receive(c *gin.Context) {
 	var message api.ReceiveMessage
 	if err := c.ShouldBindXML(&message); err != nil {
-		utils.Println("消息接受失败 err = ", err)
 		return
 	}
 

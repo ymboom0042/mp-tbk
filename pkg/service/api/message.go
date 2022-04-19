@@ -61,7 +61,6 @@ func (receive *ReceiveMessage) ReplyMsg(c *gin.Context) {
 
 	case global.MsgTypeEvent:
 		if receive.Event == global.MsgEventSubscribe {
-			utils.Println("感谢订阅")
 			receive.img(c)
 		}
 	}
@@ -92,6 +91,9 @@ func (receive *ReceiveMessage) img(c *gin.Context) {
 
 // 返回文本消息
 func replyTextMsg(toUserName, fromUserName, content string) ([]byte, error) {
+	if content == "" {
+		content = "解析失败，请确认是否是京东、淘宝、唯品会的链接。"
+	}
 	send := ReplyTextMessage{
 		replyMessage: replyMessage{
 			ToUserName:   toUserName,
@@ -125,10 +127,8 @@ func replyImgMsg(toUserName, fromUserName, mediaId string) ([]byte, error) {
 		Image: replyImage{MediaId: mediaId},
 	}
 
-	utils.Println("send = ", send)
 	b, err := xml.Marshal(&send)
 	if err != nil {
-		utils.Println("回复消息xml错误 err= ", err)
 		return []byte{}, errors.New("ReplyTextMsgToWx -> xml.Marshal fail")
 	}
 

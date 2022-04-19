@@ -10,7 +10,6 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/ymboom0042/mp-tbk/pkg/utils"
-	"log"
 )
 
 type AuthController struct {
@@ -24,11 +23,9 @@ func (a AuthController) Auth(c *gin.Context) {
 
 	token := utils.GetConfString("wx.token")
 	if ok := utils.CheckSignature(signature, timestamp, nonce, token); !ok {
-		log.Println("微信公众号接入校验失败!")
 		return
 	}
 
-	log.Println("微信公众号接入校验成功!")
 	_, _ = c.Writer.WriteString(echostr)
 
 }
