@@ -9,7 +9,6 @@ package initialize
 
 import (
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
 	"mp-17208-top/pkg/commission/apis"
@@ -18,13 +17,10 @@ import (
 	"time"
 )
 
-var pddPid = "9742959_237808983"
+var pddPid = ""
 
 func Initialize() {
 	loadConfig()
-
-	// 数据库
-	global.DB = database()
 
 	// 折淘客
 	global.Ztk = ztk()

@@ -11,7 +11,6 @@ import (
 	"encoding/xml"
 	"errors"
 	"github.com/gin-gonic/gin"
-	"mp-17208-top/model"
 	"mp-17208-top/pkg/global"
 	"mp-17208-top/pkg/utils"
 	"time"
@@ -72,10 +71,7 @@ func (receive *ReceiveMessage) ReplyMsg(c *gin.Context) {
 func (receive *ReceiveMessage) text(c *gin.Context) {
 
 	// 替换内容
-	content, apiPlatform, mallPlatform := receive.Content.ReplaceContent()
-
-	// 插入记录
-	go model.CreateRecord(receive.FromUserName, receive.Content.toString(), content, apiPlatform, mallPlatform)
+	content, _, _ := receive.Content.ReplaceContent()
 
 	// 返回文本消息
 	msg, err := replyTextMsg(receive.FromUserName, receive.ToUserName, content)
@@ -127,8 +123,8 @@ func replyImgMsg(toUserName, fromUserName, mediaId string) ([]byte, error) {
 			ToUserName:   toUserName,
 			FromUserName: fromUserName,
 			CreateTime:   time.Now().Unix(),
-			MsgType:      "image	",
-			XMLName:      xml.Name{},
+			MsgType: "image	",
+			XMLName: xml.Name{},
 		},
 		Image: replyImage{MediaId: mediaId},
 	}
