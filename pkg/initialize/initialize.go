@@ -8,14 +8,23 @@
 package initialize
 
 import (
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
-	"github.com/ymboom0042/mp-tbk/pkg/commission/apis"
-	"github.com/ymboom0042/mp-tbk/pkg/global"
-	"github.com/ymboom0042/mp-tbk/pkg/utils"
+	"mp-17208-top/pkg/commission/apis"
+	"mp-17208-top/pkg/global"
+	"mp-17208-top/pkg/utils"
+	"time"
 )
+
+var pddPid = "9742959_237808983"
 
 func Initialize() {
 	loadConfig()
+
+	// 数据库
+	global.DB = database()
 
 	// 折淘客
 	global.Ztk = ztk()
@@ -23,6 +32,8 @@ func Initialize() {
 	global.Hdk = hdk()
 	// 订单侠
 	global.Ddx = ddx()
+	// 拼多多
+	global.Pdd = pdd()
 
 	httpRequest()
 }
@@ -36,6 +47,37 @@ func loadConfig() {
 	}
 
 	utils.Println("配置文件加载成功...")
+}
+
+func database() *gorm.DB {
+	mysql := viper.GetStringMap("mysql")
+	args := fmt.Sprintf("%s:%s@/%s?%s",
+		mysql["username"],
+		mysql["password"],
+		mysql["dbname"],
+		mysql["config"],
+	)
+	db, err := gorm.Open("mysql", args)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	//默认不加复数
+	db.SingularTable(true)
+	//设置连接池
+	//空闲
+	db.DB().SetMaxIdleConns(20)
+	//打开
+	db.DB().SetMaxOpenConns(100)
+	//超时
+	db.DB().SetConnMaxLifetime(time.Second * 30)
+	// sql语句打印
+	if mysql["log-mode"] == true {
+		db.LogMode(true)
+	}
+
+	utils.Println("数据库链接成功...")
+	return db
 }
 
 func ztk() *apis.Ztk {
@@ -75,6 +117,21 @@ func ddx() *apis.Ddx {
 	return &apis.Ddx{
 		Gateway: conf["gateway"],
 		ApiKey:  conf["api-key"],
+	}
+}
+
+func pdd() *apis.Pdd {
+	conf := viper.GetStringMapString("tbk.pdd")
+	if conf == nil {
+		panic("拼多多配置不能为空...")
+	}
+	fmt.Println(viper.GetString("tbk.pdd.pid"))
+
+	return &apis.Pdd{
+		Gateway:      conf["gateway"],
+		ClientId:     conf["client-id"],
+		ClientSecret: conf["client-secret"],
+		Pid:          pddPid,
 	}
 }
 

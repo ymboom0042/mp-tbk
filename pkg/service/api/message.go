@@ -11,8 +11,9 @@ import (
 	"encoding/xml"
 	"errors"
 	"github.com/gin-gonic/gin"
-	"github.com/ymboom0042/mp-tbk/pkg/global"
-	"github.com/ymboom0042/mp-tbk/pkg/utils"
+	"mp-17208-top/model"
+	"mp-17208-top/pkg/global"
+	"mp-17208-top/pkg/utils"
 	"time"
 )
 
@@ -61,6 +62,7 @@ func (receive *ReceiveMessage) ReplyMsg(c *gin.Context) {
 
 	case global.MsgTypeEvent:
 		if receive.Event == global.MsgEventSubscribe {
+			utils.Println("感谢订阅")
 			receive.img(c)
 		}
 	}
@@ -70,7 +72,10 @@ func (receive *ReceiveMessage) ReplyMsg(c *gin.Context) {
 func (receive *ReceiveMessage) text(c *gin.Context) {
 
 	// 替换内容
-	content, _, _ := receive.Content.ReplaceContent()
+	content, apiPlatform, mallPlatform := receive.Content.ReplaceContent()
+
+	// 插入记录
+	go model.CreateRecord(receive.FromUserName, receive.Content.toString(), content, apiPlatform, mallPlatform)
 
 	// 返回文本消息
 	msg, err := replyTextMsg(receive.FromUserName, receive.ToUserName, content)
@@ -94,6 +99,7 @@ func replyTextMsg(toUserName, fromUserName, content string) ([]byte, error) {
 	if content == "" {
 		content = "解析失败，请确认是否是京东、淘宝、唯品会的链接。"
 	}
+
 	send := ReplyTextMessage{
 		replyMessage: replyMessage{
 			ToUserName:   toUserName,
@@ -121,14 +127,16 @@ func replyImgMsg(toUserName, fromUserName, mediaId string) ([]byte, error) {
 			ToUserName:   toUserName,
 			FromUserName: fromUserName,
 			CreateTime:   time.Now().Unix(),
-			MsgType: "image	",
-			XMLName: xml.Name{},
+			MsgType:      "image	",
+			XMLName:      xml.Name{},
 		},
 		Image: replyImage{MediaId: mediaId},
 	}
 
+	utils.Println("send = ", send)
 	b, err := xml.Marshal(&send)
 	if err != nil {
+		utils.Println("回复消息xml错误 err= ", err)
 		return []byte{}, errors.New("ReplyTextMsgToWx -> xml.Marshal fail")
 	}
 

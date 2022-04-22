@@ -12,8 +12,8 @@ type ZtkGetTklResponse struct {
 }
 
 type ZtkTbkPrivilegeGetResponse struct {
-	Result    ZtkResult `json:"result"`
-	RequestId string    `json:"request_id"`
+	Result ZtkResult `json:"result"`
+	RequestId string `json:"request_id"`
 }
 
 type ZtkResult struct {
@@ -22,5 +22,5 @@ type ZtkResult struct {
 
 type ZtkData struct {
 	Title string `json:"title"`
-	Tkl   string `json:"tkl"`
+	Tkl string `json:"tkl"`
 }

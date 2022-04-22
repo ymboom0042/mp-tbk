@@ -8,5 +8,6 @@
 package commission
 
 type ICommission interface {
-	GetItemLink(content string) (string, uint)
+	GetItemLink(content string) (string,uint)
 }
+

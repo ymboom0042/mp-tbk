@@ -8,7 +8,7 @@
 package commission
 
 import (
-	"github.com/ymboom0042/mp-tbk/pkg/global"
+	"mp-17208-top/pkg/global"
 )
 
 type Vip struct {

@@ -7,16 +7,16 @@ app:
 
 
 #mysql配置
-#mysql:
-#  username: root
-#  password: pwd
-#  host: 127.0.0.1
-#  port: 3306
-#  dbname: db
-#  config: 'charset=utf8mb4&parseTime=True&loc=Local'
-#  max-idle-conns: 10
-#  max-open-conns: 10
-#  log-mode: false
+mysql:
+  username: root
+  password: IqwyNNbDzQgRRDl1VTu9
+  host: 127.0.0.1
+  port: 3306
+  dbname: mp.17208.top
+  config: 'charset=utf8mb4&parseTime=True&loc=Local'
+  max-idle-conns: 10
+  max-open-conns: 10
+  log-mode: false
 
 
 #wx 微信配置
@@ -29,23 +29,27 @@ tbk:
   #折淘客 http://www.zhetaoke.com/user/open/open_shangpin_id.aspx
   ztk:
     gateway: https://api.zhetaoke.com:10001/api
-    app-key: 折淘客appkey
-    sid:
-    pid: 淘宝联盟pid
+    app-key: 25d82b79fe7b42ea812e9b74784c28a2
+    sid: 70288
+    pid: mm_747560065_1889750108_110648850305
     method:
       get-tkl: open_gaoyongzhuanlian_tkl
 
   #好单库 https://www.haodanku.com/api/detail
   hdk:
     gateway: http://v2.api.haodanku.com
-    api-key:
-    jd-union-id: 京东联盟id
+    api-key: jxhw
+    jd-union-id: 2024373909
     method:
       jd-link: get_jditems_link
 
-  #订单侠接口  https://www.dingdanxia.com/doc/133/124
+      #订单侠接口  https://www.dingdanxia.com/doc/133/124
   ddx:
     gateway: api.tbk.dingdanxia.com
-    api-key:
+    api-key: SA6uj6t0Pmucu7aaAbkQJ0RFYsuFi7qb
     method:
       vip-url: vip/url_privilege
+  pdd:
+    gateway: https://gw-api.pinduoduo.com/api/router
+    client-id: 3709b16e9e2343aab9611b5058cd7e4d
+    client-secret: 41c0ae8b64c5c586f7227c19f55421c916461460

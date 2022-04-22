@@ -8,10 +8,11 @@
 package commission
 
 import (
-	"github.com/ymboom0042/mp-tbk/pkg/global"
+	"mp-17208-top/pkg/global"
 )
 
 type Tb struct {
+
 }
 
 func NewTb() *Tb {
@@ -19,6 +20,9 @@ func NewTb() *Tb {
 }
 
 // 获取商品链接
-func (t *Tb) GetItemLink(content string) (replyContent string, apiPlatform uint) {
-	return global.Ztk.TbItemLink(content), global.ApiPlatformZtk
+func (t *Tb) GetItemLink(content string) (replyContent string,apiPlatform uint) {
+	return global.Ztk.TbItemLink(content),global.ApiPlatformZtk
 }
+
+
+

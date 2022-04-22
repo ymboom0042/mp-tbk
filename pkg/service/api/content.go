@@ -8,8 +8,8 @@
 package api
 
 import (
-	"github.com/ymboom0042/mp-tbk/pkg/commission"
-	"github.com/ymboom0042/mp-tbk/pkg/global"
+	"mp-17208-top/pkg/commission"
+	"mp-17208-top/pkg/global"
 	"strings"
 )
 
@@ -38,7 +38,10 @@ func (con Content) matchPlatform() (iCommission commission.ICommission, mallPlat
 		mallPlatform = global.MallPlatformJd
 	case con.matchVip():
 		iCommission = commission.NewVip()
-		mallPlatform = global.MallPlatformJd
+		mallPlatform = global.MallPlatformVip
+	case con.matchPdd():
+		iCommission = commission.NewPdd()
+		mallPlatform = global.MallPlatformPdd
 	default:
 		iCommission = commission.NewTb()
 		mallPlatform = global.MallPlatformTb
@@ -61,6 +64,12 @@ func (con Content) matchJd() (ok bool) {
 func (con Content) matchVip() (ok bool) {
 	return strings.Contains(con.toString(), "vip.com") ||
 		strings.Contains(con.toString(), "vipglobal.hk")
+}
+
+// 匹配拼多多
+func (con Content) matchPdd() (ok bool) {
+	return strings.Contains(con.toString(), "yangkeduo.com") ||
+		strings.Contains(con.toString(), "pingduoduo.com")
 }
 
 func (con Content) toString() string {

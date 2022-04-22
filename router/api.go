@@ -9,7 +9,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/ymboom0042/mp-tbk/controller"
+	"mp-17208-top/controller"
 )
 
 type apiRouter struct {
@@ -18,7 +18,7 @@ type apiRouter struct {
 
 func NewApiRouter(g *gin.RouterGroup) *apiRouter {
 	return &apiRouter{
-		group: g.Group("/api"),
+		group:g.Group("/api"),
 	}
 }
 
@@ -31,15 +31,15 @@ func (ar *apiRouter) Route() {
 // 微信认证
 func (ar *apiRouter) auth() {
 	var a controller.AuthController
-	ar.group.GET("/wx", a.Auth)
+	ar.group.GET("/wx",a.Auth)
 }
 
 func (ar *apiRouter) message() {
 	var m controller.MessageController
-	ar.group.POST("/wx", m.Receive)
+	ar.group.POST("/wx",m.Receive)
 }
 
 func (ar *apiRouter) test() {
 	var t controller.TestController
-	ar.group.GET("/test", t.Test)
+	ar.group.GET("/test",t.Test)
 }

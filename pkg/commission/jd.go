@@ -8,16 +8,19 @@
 package commission
 
 import (
-	"github.com/ymboom0042/mp-tbk/pkg/global"
+	"mp-17208-top/pkg/global"
 )
 
 type Jd struct {
+
 }
 
 func NewJd() *Jd {
 	return &Jd{}
 }
 
-func (j *Jd) GetItemLink(content string) (replaceContent string, apiPlatform uint) {
-	return global.Hdk.JdItemLink(content), global.ApiPlatformHdk
+func (j *Jd) GetItemLink(content string) (replaceContent string,apiPlatform uint) {
+	return global.Hdk.JdItemLink(content),global.ApiPlatformHdk
 }
+
+

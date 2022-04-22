@@ -20,9 +20,13 @@ const (
 	// 事件-(取消订阅
 	MsgEventUnSubscribe = "unsubscribe"
 
-	MallPlatformTb = 1
-	MallPlatformJd = 2
+	MallPlatformTb  = 1
+	MallPlatformJd  = 2
+	MallPlatformVip = 3
+	MallPlatformPdd = 4
 
 	ApiPlatformZtk = 1
 	ApiPlatformHdk = 2
+	ApiPlatformDdx = 3
+	ApiPlatformPdd = 4
 )

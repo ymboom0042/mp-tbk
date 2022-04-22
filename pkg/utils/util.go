@@ -16,7 +16,7 @@ import (
 	"strings"
 )
 
-func Println(a ...interface{}) {
+func Println(a ...interface{})  {
 	if viper.GetBool("app.is-print") {
 		fmt.Println(a)
 	}
@@ -25,7 +25,6 @@ func Println(a ...interface{}) {
 func GetConfString(key string) string {
 	return viper.GetString(key)
 }
-
 // CheckSignature 微信公众号签名检查
 func CheckSignature(signature, timestamp, nonce, token string) bool {
 	arr := []string{timestamp, nonce, token}
@@ -48,3 +47,4 @@ func Sha1(str string) string {
 	h.Write([]byte(str))
 	return hex.EncodeToString(h.Sum(nil))
 }
+

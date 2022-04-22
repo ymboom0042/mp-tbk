@@ -11,8 +11,8 @@ import (
 	"encoding/json"
 	"github.com/mvdan/xurls"
 	"github.com/spf13/viper"
-	"github.com/ymboom0042/mp-tbk/pkg/resp"
-	"github.com/ymboom0042/mp-tbk/pkg/utils"
+	"mp-17208-top/pkg/resp"
+	"mp-17208-top/pkg/utils"
 	"net/url"
 	"strings"
 )

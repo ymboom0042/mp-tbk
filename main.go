@@ -10,8 +10,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
-	"github.com/ymboom0042/mp-tbk/pkg/initialize"
-	"github.com/ymboom0042/mp-tbk/router"
+	"mp-17208-top/pkg/initialize"
+	"mp-17208-top/router"
 )
 
 func main() {
@@ -25,8 +25,5 @@ func main() {
 	router.NewApiRouter(&r.RouterGroup).Route()
 
 	// 驱动
-	err := r.Run(viper.GetString("app.port"))
-	if err != nil {
-		return
-	}
+	r.Run(viper.GetString("app.port"))
 }

@@ -19,22 +19,22 @@ var HttpRequest *HttpReq
 
 type HttpReq struct {
 	Client *http.Client
-	mu     sync.Mutex
+	mu sync.Mutex
 }
 
 func NewHttpReq(timeout time.Duration) {
 	HttpRequest = &HttpReq{
 		Client: &http.Client{
-			Timeout: timeout * time.Second,
+			Timeout:       timeout*time.Second,
 		},
 		mu: sync.Mutex{},
 	}
 }
 
 // Get请求
-func (h *HttpReq) Get(url string) (res []byte, err error) {
+func (h *HttpReq) Get(url string) (res []byte,err error) {
 	h.mu.Lock()
-	resp, err := h.Client.Get(url)
+	resp,err := h.Client.Get(url)
 	h.mu.Unlock()
 	if err != nil {
 		return
@@ -46,9 +46,9 @@ func (h *HttpReq) Get(url string) (res []byte, err error) {
 }
 
 // Post请求
-func (h *HttpReq) Post(reqUrl string, args map[string]string) (res []byte, err error) {
+func (h *HttpReq) Post(reqUrl string,args map[string]string) (res []byte,err error) {
 	h.mu.Lock()
-	resp, err := h.Client.PostForm(reqUrl, ArgsEncode(args))
+	resp,err := h.Client.PostForm(reqUrl, ArgsEncode(args))
 	h.mu.Unlock()
 	if err != nil {
 		return
@@ -59,10 +59,11 @@ func (h *HttpReq) Post(reqUrl string, args map[string]string) (res []byte, err e
 	return ioutil.ReadAll(resp.Body)
 }
 
+
 func ArgsEncode(args map[string]string) url.Values {
 	v := url.Values{}
 	for k, arg := range args {
-		v.Add(k, arg)
+		v.Add(k,arg)
 	}
 
 	return v
